@@ -1,35 +1,35 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { Component } from 'react';
 import './App.css';
+import HomePage from './pages/home-page';
 
-function App() {
-  const [count, setCount] = useState(0);
+interface IAppProps {}
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+interface IAppState {
+  errorStatus: boolean;
+}
+
+class App extends Component<IAppProps, IAppState> {
+  constructor(props: IAppProps) {
+    super(props);
+    this.state = {
+      errorStatus: false,
+    };
+  }
+  throwError = () => {
+    this.setState({ errorStatus: true });
+  };
+
+  render() {
+    if (this.state.errorStatus) {
+      throw new Error('Это ошибка, вызванная кнопкой');
+    }
+    return (
+      <>
+        <button onClick={this.throwError}>Вызвать ошибку</button>
+        <HomePage />
+      </>
+    );
+  }
 }
 
 export default App;
