@@ -1,9 +1,9 @@
 import React from 'react';
-import { Character } from '../home-page';
+import { Character, IErrorResponse } from '../home-page';
 import CardItem from './cardItem';
 
 interface CardsProps {
-  characters: Character[] | null;
+  characters: Character[] | IErrorResponse | null;
 }
 
 const CardList: React.FC<CardsProps> = ({ characters }) => {
@@ -15,6 +15,13 @@ const CardList: React.FC<CardsProps> = ({ characters }) => {
             <CardItem character={card} />
           </div>
         ))}
+      </div>
+    );
+  } else if (characters) {
+    return (
+      <div className="prompt-container">
+        <h3>{characters.text}</h3>
+        <img className="prompt-img" src={characters.image} alt="boy" />
       </div>
     );
   }

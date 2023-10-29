@@ -4,8 +4,9 @@ import axios from 'axios';
 import Spinner from './componets/spinner';
 import CardList from './componets/cardList';
 import './styles/home-page.css';
+import character404 from '../assets/404.png';
 
-export interface IErrors {
+export interface IErrorResponse {
   errorStatus: number;
   text: string;
   image: string;
@@ -35,7 +36,7 @@ export interface Character {
 interface IHomePageProps {}
 
 interface IHomePagerState {
-  data: Character[] | null;
+  data: Character[] | IErrorResponse | null;
   loadingStatus: boolean;
 }
 
@@ -55,9 +56,16 @@ class HomePage extends React.Component<IHomePageProps, IHomePagerState> {
       .get(`https://rickandmortyapi.com/api/character/?name=${value}`)
       .then((response) => {
         this.setState({ data: response.data.results });
-        console.log(response.data);
       })
       .catch((error) => {
+        if (error.response.status === 404) {
+          const responseObject: IErrorResponse = {
+            errorStatus: error.response.statu,
+            text: 'No such character',
+            image: character404,
+          };
+          this.setState({ data: responseObject });
+        }
         console.error('Ошибка:', error);
       })
       .finally(() => {
