@@ -43,10 +43,10 @@ class ErrorBoundary extends React.Component<
   render() {
     if (this.state.errorInfo) {
       return (
-        <div className="errorBoundary-container">
-          <div className="error-interface">
+        <div className="error-boundary__container">
+          <div className="error-boundary__content">
             <h1>Error</h1>
-            <button onClick={this.resetApp} className="restart-button">
+            <button className="restart-button" onClick={this.resetApp}>
               Fix up
             </button>
           </div>

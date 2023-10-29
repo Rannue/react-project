@@ -104,8 +104,8 @@ body {
 
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Три столбца с равной шириной */
-  grid-gap: 32px; /* Расстояние между элементами */
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 32px;
 
   .card {
     cursor: pointer;
@@ -132,7 +132,7 @@ body {
   }
 }
 
-// -----404-response-----
+// -----404-RESPONSE-----
 
 .prompt-container {
   display: flex;

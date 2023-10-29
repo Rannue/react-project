@@ -1,21 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400&family=Karla:wght@300;400;500;600&display=swap');
-/* font-family: 'Karla', sans-serif; */
 
-.errorBoundary-container {
+.error-boundary__container {
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #e14d2a;
 }
 
-.errorBoundary-container h1 {
+.error-boundary__container h1 {
   font-family: 'Inconsolata', monospace;
   font-size: 160px;
   text-align: center;
   color: #f5f5f5;
 }
 
-.error-interface {
+.error-boundary__content {
   margin: 45vh 40vw;
   width: 20vw;
   height: 10vh;
