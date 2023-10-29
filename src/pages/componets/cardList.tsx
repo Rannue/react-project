@@ -9,7 +9,7 @@ interface CardsProps {
 const CardList: React.FC<CardsProps> = ({ characters }) => {
   if (Array.isArray(characters)) {
     return (
-      <div className="card-container">
+      <div className="cards-container">
         {characters.map((card) => (
           <div className="card" key={card.id}>
             <CardItem character={card} />

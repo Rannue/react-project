@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import "./App.css"
 
 interface IErrorBoundaryProps {
   children: ReactNode;
@@ -21,6 +22,8 @@ class ErrorBoundary extends React.Component<
       error: null,
       errorInfo: null,
     };
+
+    this.resetApp = this.resetApp.bind(this);
   }
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
@@ -30,9 +33,21 @@ class ErrorBoundary extends React.Component<
     });
   }
 
+  resetApp() {
+    this.setState({
+        error: null,
+        errorInfo: null,
+      });
+  }
+
   render() {
     if (this.state.errorInfo) {
-      return <h1>ЧТО то ПОШЛО не так</h1>;
+      return <div className="errorBoundary-container">
+        <div className="error-interface">
+        <h1>Error</h1>
+        <button onClick={this.resetApp} className='restart-button'>Fix up</button>
+        </div>
+      </div> ;
     }
 
     return this.props.children;

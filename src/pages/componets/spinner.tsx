@@ -1,11 +1,10 @@
 const Spinner = () => {
   return (
     <>
-      <div className="loading-dots" data-testid="spinner">
+      <div className="loader dots">
         <div></div>
         <div></div>
         <div></div>
-        <h1>OOOOOOOOOOOOOOOOOOOOOOOOOOOO</h1>
       </div>
     </>
   );
