@@ -21,6 +21,10 @@ class SearchBar extends React.Component<ISearchBarProps, ISearchBarState> {
     this.OnClick = this.OnClick.bind(this);
   }
 
+  componentDidMount() {
+    this.state.onSearch(this.state.value);
+  }
+
   InputChange(event: React.FormEvent<HTMLInputElement>) {
     const inputValue = event.currentTarget.value;
     this.setState({ value: inputValue });
