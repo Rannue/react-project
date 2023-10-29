@@ -3,7 +3,7 @@ import SearchBar from './componets/searchBar';
 import axios from 'axios';
 import Spinner from './componets/spinner';
 import CardList from './componets/cardList';
-import "./styles/home-page.css"
+import './styles/home-page.css';
 
 export interface IErrors {
   errorStatus: number;
@@ -68,16 +68,16 @@ class HomePage extends React.Component<IHomePageProps, IHomePagerState> {
   render() {
     return (
       <>
-      <div className="main-container">
-      <div className="search-bar__wrapper">
-          <SearchBar onSearch={this.handleSearch} />
+        <div className="main-container">
+          <div className="search-bar__wrapper">
+            <SearchBar onSearch={this.handleSearch} />
+          </div>
+          {this.state.loadingStatus ? (
+            <Spinner />
+          ) : (
+            <CardList characters={this.state.data} />
+          )}
         </div>
-        {this.state.loadingStatus ? (
-          <Spinner />
-        ) : (
-          <CardList characters={this.state.data} />
-        )}
-      </div>
       </>
     );
   }

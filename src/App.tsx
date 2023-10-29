@@ -25,7 +25,9 @@ class App extends Component<IAppProps, IAppState> {
     }
     return (
       <>
-        <button className='error-button' onClick={this.throwError}>Error?</button>
+        <button className="error-button" onClick={this.throwError}>
+          Error?
+        </button>
         <HomePage />
       </>
     );

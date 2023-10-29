@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400&family=Karla:wght@300;400;500;600&display=swap');
-  /* font-family: 'Karla', sans-serif; */
+/* font-family: 'Karla', sans-serif; */
 
 .errorBoundary-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #E14D2A;
+  background-color: #e14d2a;
 }
 
 .errorBoundary-container h1 {
   font-family: 'Inconsolata', monospace;
   font-size: 160px;
   text-align: center;
-  color: #F5F5F5;
+  color: #f5f5f5;
 }
 
 .error-interface {
@@ -30,15 +30,16 @@
   cursor: pointer;
   font-size: 64px;
   border-radius: 100px;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   border: none;
-  width:  380px;
+  width: 380px;
   padding: 38px;
   transition: 0.3s;
 }
 
-.restart-button:hover, .error-button:hover {
-  box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.25)
+.restart-button:hover,
+.error-button:hover {
+  box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.25);
 }
 
 .error-button {
@@ -55,6 +56,6 @@
   font-family: 'Karla', sans-serif;
   font-size: 42px;
   font-weight: 500;
-  background-color: #E14D2A;
-  color: #F5F5F5;
+  background-color: #e14d2a;
+  color: #f5f5f5;
 }

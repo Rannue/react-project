@@ -1,11 +1,11 @@
 @charset "UTF-8";
 body {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   color: #181818;
 }
 body h5 {
   font-size: 24px;
-  font-family: "Inconsolata", monospace;
+  font-family: 'Inconsolata', monospace;
   font-weight: 400;
 }
 body button {
@@ -26,31 +26,31 @@ body button {
   display: flex;
   justify-content: center;
 }
-.search-bar__container input[type=text] {
+.search-bar__container input[type='text'] {
   width: 25%;
   padding: 12px 12px;
-  font-family: "Karla", sans-serif;
+  font-family: 'Karla', sans-serif;
   font-size: 18px;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   border-radius: 2px 0 0 2px;
   border: none;
-  background-color: #F99417;
+  background-color: #f99417;
   transition: 0.3s;
-  color: #F5F5F5;
+  color: #f5f5f5;
 }
-.search-bar__container input[type=text]:focus {
-  color: #F5F5F5;
+.search-bar__container input[type='text']:focus {
+  color: #f5f5f5;
   outline: none;
-  background-color: #4D4C7D;
+  background-color: #4d4c7d;
 }
-.search-bar__container input[type=text]:focus + button {
-  background-color: #4D4C7D;
+.search-bar__container input[type='text']:focus + button {
+  background-color: #4d4c7d;
 }
 .search-bar__container button {
   cursor: pointer;
   width: 49px;
   height: 49px;
-  background-color: #F99417;
+  background-color: #f99417;
   transition: 0.3s;
   border: none;
   border-radius: 0 2px 2px 0;
@@ -65,7 +65,7 @@ body button {
 }
 
 .loader.dots div {
-  background-color: #4D4C7D;
+  background-color: #4d4c7d;
   width: 24px;
   height: 24px;
   margin: 0 5px;
@@ -108,4 +108,4 @@ body button {
 
 .card-img__wrapper img {
   width: 100%;
-}/*# sourceMappingURL=home-page.css.map */
+} /*# sourceMappingURL=home-page.css.map */
