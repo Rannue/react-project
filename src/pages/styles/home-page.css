@@ -3,6 +3,9 @@ body {
   background-color: #f5f5f5;
   color: #181818;
 }
+body h3 {
+  font-family: 'Inconsolata', monospace;
+}
 body h5 {
   font-size: 24px;
   font-family: 'Inconsolata', monospace;
@@ -108,4 +111,22 @@ body button {
 
 .card-img__wrapper img {
   width: 100%;
+}
+
+.prompt-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+  justify-content: center;
+  align-items: center;
+}
+.prompt-container h3 {
+  font-size: 2em;
+  font-weight: 400;
+}
+
+.prompt-img {
+  height: 10em;
+  width: auto;
+  margin-top: 32px;
 } /*# sourceMappingURL=home-page.css.map */

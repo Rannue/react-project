@@ -2,6 +2,10 @@ body {
   background-color: #f5f5f5;
   color: #181818;
 
+  h3 {
+    font-family: 'Inconsolata', monospace;
+  }
+
   h5 {
     font-size: 24px;
     font-family: 'Inconsolata', monospace;
@@ -23,7 +27,7 @@ body {
   gap: 42px;
 }
 
-// -----SEARCG-BAR-----
+// -----SEARCH-BAR-----
 
 .search-bar__container {
   display: flex;
@@ -67,7 +71,7 @@ body {
   }
 }
 
-// -----SPINNER-----
+// -----LOADER-----
 
 .loader.dots {
   text-align: center;
@@ -126,4 +130,25 @@ body {
   img {
     width: 100%;
   }
+}
+
+// -----404-response-----
+
+.prompt-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+  justify-content: center;
+  align-items: center;
+
+  h3 {
+    font-size: 2em;
+    font-weight: 400;
+  }
+}
+
+.prompt-img {
+  height: 10em;
+  width: auto;
+  margin-top: 32px;
 }

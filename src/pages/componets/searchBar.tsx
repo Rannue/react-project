@@ -17,20 +17,20 @@ class SearchBar extends React.Component<ISearchBarProps, ISearchBarState> {
       onSearch: this.props.onSearch,
     };
 
-    this.InputChange = this.InputChange.bind(this);
-    this.OnClick = this.OnClick.bind(this);
+    this.inputChange = this.inputChange.bind(this);
+    this.search = this.search.bind(this);
   }
 
   componentDidMount() {
     this.state.onSearch(this.state.value);
   }
 
-  InputChange(event: React.FormEvent<HTMLInputElement>) {
+  inputChange(event: React.FormEvent<HTMLInputElement>) {
     const inputValue = event.currentTarget.value;
     this.setState({ value: inputValue });
   }
 
-  OnClick() {
+  search() {
     this.state.onSearch(this.state.value);
     localStorage.setItem('inputValue', this.state.value);
   }
@@ -43,9 +43,9 @@ class SearchBar extends React.Component<ISearchBarProps, ISearchBarState> {
             className="search-bar"
             type="text"
             value={this.state.value}
-            onChange={this.InputChange}
+            onChange={this.inputChange}
           />
-          <button onClick={this.OnClick}>
+          <button onClick={this.search}>
             <div className="search-icon">
               <svg
                 width="24"
