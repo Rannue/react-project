@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SearchBar from './componets/searchBar';
 import axios from 'axios';
 import Spinner from './componets/spinner';
@@ -33,29 +33,17 @@ export interface Character {
   created: string;
 }
 
-interface IHomePageProps {}
+const HomePage: React.FC = () => {
+  const [data, setData] = useState<Character[] | IErrorResponse | null>(null);
+  const [loadingStatus, setLoadingStatus] = useState(false);
 
-interface IHomePagerState {
-  data: Character[] | IErrorResponse | null;
-  loadingStatus: boolean;
-}
-
-class HomePage extends React.Component<IHomePageProps, IHomePagerState> {
-  constructor(props: IHomePageProps) {
-    super(props);
-    this.state = {
-      data: null,
-      loadingStatus: false,
-    };
-  }
-
-  handleSearch = async (value: string) => {
-    this.setState({ loadingStatus: true });
+  const handleSearch = async (value: string) => {
+    setLoadingStatus(true);
 
     axios
       .get(`https://rickandmortyapi.com/api/character/?name=${value}`)
       .then((response) => {
-        this.setState({ data: response.data.results });
+        setData(response.data.results);
       })
       .catch((error) => {
         if (error.response.status === 404) {
@@ -64,31 +52,25 @@ class HomePage extends React.Component<IHomePageProps, IHomePagerState> {
             text: 'No such character',
             image: character404,
           };
-          this.setState({ data: responseObject });
+          setData(responseObject);
         }
         console.error('Ошибка:', error);
       })
       .finally(() => {
-        this.setState({ loadingStatus: false });
+        setLoadingStatus(false);
       });
   };
 
-  render() {
-    return (
-      <>
-        <div className="main-container">
-          <div className="search-bar__wrapper">
-            <SearchBar onSearch={this.handleSearch} />
-          </div>
-          {this.state.loadingStatus ? (
-            <Spinner />
-          ) : (
-            <CardList characters={this.state.data} />
-          )}
+  return (
+    <>
+      <div className="main-container">
+        <div className="search-bar__wrapper">
+          <SearchBar onSearch={handleSearch} />
         </div>
-      </>
-    );
-  }
-}
+        {loadingStatus ? <Spinner /> : <CardList characters={data} />}
+      </div>
+    </>
+  );
+};
 
 export default HomePage;

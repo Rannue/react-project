@@ -1,37 +1,24 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import './App.css';
 import HomePage from './pages/home-page';
 
-interface IAppProps {}
+const App: React.FC = () => {
+  const [errorStatus, setErrorStatus] = useState(false);
 
-interface IAppState {
-  errorStatus: boolean;
-}
-
-class App extends Component<IAppProps, IAppState> {
-  constructor(props: IAppProps) {
-    super(props);
-    this.state = {
-      errorStatus: false,
-    };
-  }
-  throwError = () => {
-    this.setState({ errorStatus: true });
+  const throwError = () => {
+    setErrorStatus(true);
   };
 
-  render() {
-    if (this.state.errorStatus) {
-      throw new Error('Это ошибка, вызванная кнопкой');
-    }
-    return (
-      <>
-        <button className="error-button" onClick={this.throwError}>
-          Error?
-        </button>
-        <HomePage />
-      </>
-    );
-  }
-}
+  if (errorStatus) throw new Error('Это ошибка, вызванная кнопкой');
+
+  return (
+    <>
+      <button className="error-button" onClick={throwError}>
+        Error?
+      </button>
+      <HomePage />
+    </>
+  );
+};
 
 export default App;
