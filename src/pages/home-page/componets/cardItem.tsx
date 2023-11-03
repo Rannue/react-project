@@ -1,5 +1,5 @@
 import React from 'react';
-import { Character } from '../home-page';
+import { Character } from '../home-page/home-page';
 
 interface ICardItemProps {
   character: Character;

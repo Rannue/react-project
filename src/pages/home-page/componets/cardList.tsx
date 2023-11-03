@@ -1,5 +1,5 @@
 import React from 'react';
-import { Character, IErrorResponse } from '../home-page';
+import { Character, IErrorResponse } from '../home-page/home-page';
 import CardItem from './cardItem';
 
 interface CardsProps {

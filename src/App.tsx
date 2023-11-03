@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import './App.css';
-import HomePage from './pages/home-page';
+import HomePage from './pages/home-page/home-page';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Header from './pages/components/header';
 
-const App: React.FC = () => {
+function App() {
   const [errorStatus, setErrorStatus] = useState(false);
 
   const throwError = () => {
@@ -13,12 +15,21 @@ const App: React.FC = () => {
 
   return (
     <>
-      <button className="error-button" onClick={throwError}>
-        Error?
-      </button>
-      <HomePage />
+      <BrowserRouter>
+        <button className="error-button" onClick={throwError}>
+          Error?
+        </button>
+        <header>
+          <Header />
+        </header>
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+          </Routes>
+        </main>
+      </BrowserRouter>
     </>
   );
-};
+}
 
 export default App;

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import SearchBar from './componets/searchBar';
 import axios from 'axios';
-import Spinner from './componets/spinner';
-import CardList from './componets/cardList';
 import './styles/home-page.css';
-import character404 from '../assets/404.png';
+import character404 from '../../assets/404.png';
+import CardList from './componets/cardList';
+import Spinner from './componets/spinner';
+import SearchBar from './componets/searchBar';
 
 export interface IErrorResponse {
   errorStatus: number;
