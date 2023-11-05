@@ -1,0 +1,40 @@
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.limit,
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  button {
+    outline: none;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 2px;
+    background-color: #f5cb5c;
+  }
+
+  input[type='number'] {
+    width: 48px;
+    height: 24px;
+    // width: 250px;
+    padding: 0px 4px;
+    // font-family: 'Karla', sans-serif;
+    // font-size: 18px;
+    // border-radius: 2px 0 0 2px;
+    border: none;
+    background-color: #f5cb5c;
+    // transition: 0.3s;
+    // color: #f5f5f5;
+  }
+
+  input[type='number']:focus {
+    outline: none;
+  }
+}

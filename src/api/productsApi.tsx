@@ -24,12 +24,13 @@ export const fetchProducts = async (value: string, limit: number, skip = 0) => {
     if (response.data.products.length === 0) {
       const responseObject: IErrorResponse = {
         errorStatus: 400,
-        text: 'No such character',
+        text: 'No products',
         image: character404,
       };
       return responseObject;
     } else {
-      return response.data.products;
+      console.log('hi');
+      return response.data;
     }
   } catch (error) {
     console.error('Ошибка:', error);
@@ -40,7 +41,6 @@ export const fetchProducts = async (value: string, limit: number, skip = 0) => {
 export const fetchProductsItem = async (id: string) => {
   try {
     const response = await axios.get(`https://dummyjson.com/products/${id}`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Ошибка:', error);

@@ -1,8 +1,13 @@
 body {
-  background-color: #f5f5f5;
+  background-color: #cfdbd5;
   color: #181818;
 }
+body p,
+body label {
+  font-family: 'Inconsolata', monospace;
+}
 body h3 {
+  font-size: 24px;
   font-family: 'Inconsolata', monospace;
 }
 body h4 {
@@ -26,7 +31,7 @@ body button {
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 42px;
+  gap: 32px;
 }
 
 .search-bar__container {
@@ -34,30 +39,29 @@ body button {
   justify-content: center;
 }
 .search-bar__container input[type='text'] {
-  width: 25%;
+  width: 250px;
   padding: 12px 12px;
   font-family: 'Karla', sans-serif;
   font-size: 18px;
-  background-color: #f5f5f5;
   border-radius: 2px 0 0 2px;
   border: none;
-  background-color: #f99417;
+  background-color: #333533;
   transition: 0.3s;
   color: #f5f5f5;
 }
 .search-bar__container input[type='text']:focus {
   color: #f5f5f5;
   outline: none;
-  background-color: #4d4c7d;
+  background-color: #242423;
 }
 .search-bar__container input[type='text']:focus + button {
-  background-color: #4d4c7d;
+  background-color: #242423;
 }
 .search-bar__container button {
   cursor: pointer;
   width: 49px;
   height: 49px;
-  background-color: #f99417;
+  background-color: #333533;
   transition: 0.3s;
   border: none;
   border-radius: 0 2px 2px 0;
@@ -72,7 +76,7 @@ body button {
 }
 
 .loader.dots div {
-  background-color: #4d4c7d;
+  background-color: #e8eddf;
   width: 24px;
   height: 24px;
   margin: 0 5px;
@@ -100,22 +104,23 @@ body button {
 .cards-container a {
   text-decoration: none;
   color: #181818;
+  background-color: #e8eddf;
+  transition: 0.3s;
+}
+.cards-container a:hover {
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
 }
 .cards-container .card {
   cursor: pointer;
   text-align: center;
   box-sizing: border-box;
-  transition: 0.3s;
-  background-color: #ffffff;
+  background-color: #e8eddf;
 }
 .cards-container .card .card-content {
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding: 24px;
-}
-.cards-container .card:hover {
-  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
 }
 
 .card-img__wrapper img {

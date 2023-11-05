@@ -1,34 +1,11 @@
 import React, { useState } from 'react';
-import { IErrorResponse } from '../home-page';
-import { IProduct, fetchProducts } from '../../../api/productsApi';
-import { useSearchParams } from 'react-router-dom';
 
 interface ISearchBarProps {
-  setLoadingStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  setData: React.Dispatch<
-    React.SetStateAction<IErrorResponse | IProduct[] | null>
-  >;
+  handleSearch: (value: string) => void;
 }
 
-const SearchBar: React.FC<ISearchBarProps> = ({
-  setLoadingStatus,
-  setData,
-}) => {
-  const [searchParams] = useSearchParams();
+const SearchBar: React.FC<ISearchBarProps> = ({ handleSearch }) => {
   const [value, setValue] = useState(localStorage.getItem('inputValue') || '');
-  const [limit] = useState(Number(searchParams.get('limit')) | 6);
-
-  const handleSearch = async (value: string) => {
-    const fetchDataFromApi = async () => {
-      setLoadingStatus(true);
-      const result = await fetchProducts(value, limit);
-      console.log(result);
-      setData(result);
-      setLoadingStatus(false);
-    };
-
-    fetchDataFromApi();
-  };
 
   const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
