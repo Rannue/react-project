@@ -7,10 +7,6 @@ interface ISearchBarProps {
 const SearchBar: React.FC<ISearchBarProps> = ({ onSearch }) => {
   const [value, setValue] = useState(localStorage.getItem('inputValue') || '');
 
-  // const componentDidMount = () => {
-  //   onSearch(value);
-  // }
-
   const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
     setValue(inputValue);

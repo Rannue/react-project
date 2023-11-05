@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import './App.css';
-import HomePage from './pages/home-page/home-page';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Header from './pages/components/header';
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
+import RootLayout from './layouts/rootLayout';
 
 function App() {
   const [errorStatus, setErrorStatus] = useState(false);
@@ -13,21 +17,22 @@ function App() {
 
   if (errorStatus) throw new Error('Это ошибка, вызванная кнопкой');
 
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route>
+        <Route path="/" element={<RootLayout />}>
+          <Route path=":id" element={} />
+        </Route>
+      </Route>
+    )
+  );
+
   return (
     <>
-      <BrowserRouter>
-        <button className="error-button" onClick={throwError}>
-          Error?
-        </button>
-        <header>
-          <Header />
-        </header>
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-          </Routes>
-        </main>
-      </BrowserRouter>
+      <button className="error-button" onClick={throwError}>
+        Error?
+      </button>
+      <RouterProvider router={router} />
     </>
   );
 }
