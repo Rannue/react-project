@@ -87,7 +87,8 @@ const HomePage: React.FC = () => {
         </div>
         {cardListStatus ? (
           <h3>
-            {total ? total : 0} products found for <b>{value}</b>
+            {total ? total : 0} products found{' '}
+            {value.length > 0 ? `for ${value}` : ''}
           </h3>
         ) : (
           <></>
