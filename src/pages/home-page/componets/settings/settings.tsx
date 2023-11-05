@@ -30,7 +30,7 @@ export const Settings: React.FC<ISettingsProps> = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    e.preventDefault(); // Предотвращаем ввод вручную
+    e.preventDefault();
   };
 
   return (
