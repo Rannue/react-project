@@ -1,9 +1,11 @@
 import React from 'react';
-import { Character, IErrorResponse } from '../home-page/home-page';
 import CardItem from './cardItem';
+import { Link } from 'react-router-dom';
+import { IErrorResponse } from '../home-page';
+import { IProduct } from '../../../api/productsApi';
 
 interface CardsProps {
-  characters: Character[] | IErrorResponse | null;
+  characters: IProduct[] | IErrorResponse | null;
 }
 
 const CardList: React.FC<CardsProps> = ({ characters }) => {
@@ -11,9 +13,11 @@ const CardList: React.FC<CardsProps> = ({ characters }) => {
     return (
       <div className="cards-container">
         {characters.map((card) => (
-          <div className="card" key={card.id}>
-            <CardItem character={card} />
-          </div>
+          <Link to={card.id.toString()} key={card.id}>
+            <div className="card" key={card.id}>
+              <CardItem character={card} />
+            </div>
+          </Link>
         ))}
       </div>
     );

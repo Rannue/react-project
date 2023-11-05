@@ -1,0 +1,12 @@
+.career-details {
+  border-left: 1px solid #181818;
+  border-radius: 2px;
+  padding: 48px;
+}
+
+.career-details__img {
+  width: 300px;
+  height: 200px;
+  -o-object-fit: cover;
+  object-fit: cover;
+} /*# sourceMappingURL=cardItemDetails.css.map */

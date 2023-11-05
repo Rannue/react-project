@@ -15,8 +15,10 @@ export default function RootLayout() {
         </div>
       </header>
       <main>
-        <Outlet />
-        <HomePage />
+        <div className="main-container__wrapper">
+          <Outlet />
+          <HomePage />
+        </div>
       </main>
     </div>
   );

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './styles/home-page.css';
-import character404 from '../../assets/404.png';
 import CardList from './componets/cardList';
 import Spinner from './componets/spinner';
 import SearchBar from './componets/searchBar';
+import { IProduct } from '../../api/productsApi';
 
 export interface IErrorResponse {
   errorStatus: number;
@@ -34,38 +33,14 @@ export interface Character {
 }
 
 const HomePage: React.FC = () => {
-  const [data, setData] = useState<Character[] | IErrorResponse | null>(null);
+  const [data, setData] = useState<IProduct[] | IErrorResponse | null>(null);
   const [loadingStatus, setLoadingStatus] = useState(false);
-
-  const handleSearch = async (value: string) => {
-    setLoadingStatus(true);
-
-    axios
-      .get(`https://rickandmortyapi.com/api/character/?name=${value}`)
-      .then((response) => {
-        setData(response.data.results);
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          const responseObject: IErrorResponse = {
-            errorStatus: error.response.statu,
-            text: 'No such character',
-            image: character404,
-          };
-          setData(responseObject);
-        }
-        console.error('Ошибка:', error);
-      })
-      .finally(() => {
-        setLoadingStatus(false);
-      });
-  };
 
   return (
     <>
       <div className="main-container">
         <div className="search-bar__wrapper">
-          <SearchBar onSearch={handleSearch} />
+          <SearchBar setLoadingStatus={setLoadingStatus} setData={setData} />
         </div>
         {loadingStatus ? <Spinner /> : <CardList characters={data} />}
       </div>

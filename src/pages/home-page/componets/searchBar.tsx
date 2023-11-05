@@ -1,11 +1,34 @@
 import React, { useState } from 'react';
+import { IErrorResponse } from '../home-page';
+import { IProduct, fetchProducts } from '../../../api/productsApi';
+import { useSearchParams } from 'react-router-dom';
 
 interface ISearchBarProps {
-  onSearch: (value: string) => void;
+  setLoadingStatus: React.Dispatch<React.SetStateAction<boolean>>;
+  setData: React.Dispatch<
+    React.SetStateAction<IErrorResponse | IProduct[] | null>
+  >;
 }
 
-const SearchBar: React.FC<ISearchBarProps> = ({ onSearch }) => {
+const SearchBar: React.FC<ISearchBarProps> = ({
+  setLoadingStatus,
+  setData,
+}) => {
+  const [searchParams] = useSearchParams();
   const [value, setValue] = useState(localStorage.getItem('inputValue') || '');
+  const [limit] = useState(Number(searchParams.get('limit')) | 6);
+
+  const handleSearch = async (value: string) => {
+    const fetchDataFromApi = async () => {
+      setLoadingStatus(true);
+      const result = await fetchProducts(value, limit);
+      console.log(result);
+      setData(result);
+      setLoadingStatus(false);
+    };
+
+    fetchDataFromApi();
+  };
 
   const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
@@ -13,7 +36,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onSearch }) => {
   };
 
   const search = () => {
-    onSearch(value);
+    handleSearch(value);
     localStorage.setItem('inputValue', value);
   };
 
