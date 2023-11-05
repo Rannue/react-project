@@ -1,4 +1,4 @@
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IProduct, fetchProductsItem } from '../../../../api/productsApi';
 import './cardItemDetails.css';
@@ -20,14 +20,28 @@ export default function CardItemDetails() {
   return (
     <div className="career-details">
       <img className="career-details__img" src={card?.thumbnail} alt="" />
-      <h2>{card?.title}</h2>
-      <h1>{card?.price}$</h1>
-      <h4>stock: {card?.stock}</h4>
-      <h4>rating: {card?.rating}</h4>
-      <NavLink to="/">
-        <button>close</button>
+      <div className="career-details__info">
+        <div className="career-details__main-info">
+          <h5>{card?.title}</h5>
+          <div className="career-details__second-info">
+            <h6>brand: {card?.brand}</h6>
+            <h6>rating: {card?.rating}</h6>
+            <h6>stock: {card?.stock}</h6>
+          </div>
+          <h4>{card?.price}$</h4>
+        </div>
+      </div>
+      <NavLink to="description">
+        <button>
+          <h6>description</h6>
+        </button>
       </NavLink>
-      <button>description</button>
+      <Outlet />
+      <NavLink to="/">
+        <button>
+          <h6>close</h6>
+        </button>
+      </NavLink>
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { IErrorResponse } from '../pages/home-page/home-page';
 import character404 from '../assets/404.png';
 
 export interface IProduct {
@@ -16,6 +15,19 @@ export interface IProduct {
   title: string;
 }
 
+export interface IErrorResponse {
+  errorStatus: number;
+  text: string;
+  image: string;
+}
+
+export interface IProductObject {
+  limit: number;
+  products: IProduct[];
+  skip: number;
+  total: number;
+}
+
 export const fetchProducts = async (value: string, limit: number, skip = 0) => {
   try {
     const response = await axios.get(
@@ -29,7 +41,6 @@ export const fetchProducts = async (value: string, limit: number, skip = 0) => {
       };
       return responseObject;
     } else {
-      console.log('hi');
       return response.data;
     }
   } catch (error) {

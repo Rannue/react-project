@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import RootLayout from './layouts/rootLayout';
 import CardItemDetails from './pages/home-page/componets/cardItemDetails/cardItemDetails';
+import Description from './pages/home-page/componets/description/description';
 
 function App() {
   const [errorStatus, setErrorStatus] = useState(false);
@@ -22,7 +23,9 @@ function App() {
     createRoutesFromElements(
       <Route>
         <Route path="/" element={<RootLayout />}>
-          <Route path=":id" element={<CardItemDetails />} />
+          <Route path=":id" element={<CardItemDetails />}>
+            <Route path=":description" element={<Description />} />
+          </Route>
         </Route>
       </Route>
     )

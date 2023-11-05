@@ -2,37 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './styles/home-page.css';
 import Spinner from './componets/spinner';
 import SearchBar from './componets/searchBar';
-import { IProduct, fetchProducts } from '../../api/productsApi';
+import { IErrorResponse, IProduct, fetchProducts } from '../../api/productsApi';
 import { Settings } from './componets/settings/settings';
 import CardList from './componets/cardList';
 import { useSearchParams } from 'react-router-dom';
-
-export interface IErrorResponse {
-  errorStatus: number;
-  text: string;
-  image: string;
-}
-
-export interface Character {
-  id: number;
-  name: string;
-  status: string;
-  species: string;
-  type: string;
-  gender: string;
-  origin: {
-    name: string;
-    url: string;
-  };
-  location: {
-    name: string;
-    url: string;
-  };
-  image: string;
-  episode: string[];
-  url: string;
-  created: string;
-}
 
 const HomePage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -49,11 +22,14 @@ const HomePage: React.FC = () => {
   }, [page, limit, setSearchParams]);
 
   const handleSearch = async (value: string) => {
+    console.log('lo');
     const fetchDataFromApi = async () => {
       setLoadingStatus(true);
       setCardListStatus(false);
       const result = await fetchProducts(value, limit);
+
       if (result.products) {
+        console.log(result);
         setData(result.products);
       } else {
         setCardListStatus(false);

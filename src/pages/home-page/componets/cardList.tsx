@@ -1,8 +1,7 @@
 import React from 'react';
 import CardItem from './cardItem';
 import { Link } from 'react-router-dom';
-import { IErrorResponse } from '../home-page';
-import { IProduct } from '../../../api/productsApi';
+import { IErrorResponse, IProduct } from '../../../api/productsApi';
 
 interface CardsProps {
   setCardListStatus: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,7 +28,6 @@ const CardList: React.FC<CardsProps> = ({ characters, setCardListStatus }) => {
     return (
       <div className="prompt-container">
         <h3>{characters.text}</h3>
-        {/* <img className="prompt-img" src={characters.image} alt="boy" /> */}
       </div>
     );
   }

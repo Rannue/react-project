@@ -3,8 +3,14 @@ body {
   color: #181818;
 
   p,
-  label {
+  label,
+  h1,
+  h6 {
     font-family: 'Inconsolata', monospace;
+  }
+
+  h1 {
+    font-size: 32px;
   }
 
   h3 {
@@ -22,6 +28,10 @@ body {
     font-size: 24px;
     font-family: 'Inconsolata', monospace;
     font-weight: 400;
+  }
+
+  h6 {
+    font-size: 18px;
   }
 
   button {

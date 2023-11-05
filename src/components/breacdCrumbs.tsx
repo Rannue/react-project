@@ -18,7 +18,5 @@ export default function Breadcrumbs() {
       );
     });
 
-  console.log(location);
-
   return <div className="breadcrumbs">{crumbs}</div>;
 }
