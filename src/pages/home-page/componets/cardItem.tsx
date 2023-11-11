@@ -1,22 +1,21 @@
 import React from 'react';
-import { IProduct } from '../../../api/productsApi';
+import { ICharacter } from '../../../types/types';
 
 interface ICardItemProps {
-  character: IProduct;
+  character: ICharacter;
 }
 
 const CardItem: React.FC<ICardItemProps> = ({ character }) => {
-  const { title, thumbnail, price } = character;
+  const { name, image } = character;
 
   return (
     <>
       <div className="card-content">
         <div className="card-img__wrapper">
-          <img className="card-img" src={thumbnail} alt={title} />
+          <img className="card-img" src={image} alt={name} />
         </div>
         <div className="card-text__wrapper">
-          <h5>{title}</h5>
-          <h4>{price}$</h4>
+          <h5>{name}</h5>
         </div>
       </div>
     </>

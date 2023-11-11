@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CardItem from './cardItem';
-import { Link } from 'react-router-dom';
-import { IErrorResponse, IProduct } from '../../../api/productsApi';
+import { Link, Outlet, useParams } from 'react-router-dom';
+import { HomePageContext } from '../../../context/contextProvider';
 
-interface CardsProps {
-  setCardListStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  characters: IProduct[] | IErrorResponse | null;
-}
+const CardList: React.FC = () => {
+  const { page } = useParams();
+  console.log(page);
+  const context = useContext(HomePageContext);
+  const characters = context.data;
 
-const CardList: React.FC<CardsProps> = ({ characters, setCardListStatus }) => {
   if (Array.isArray(characters)) {
-    setCardListStatus(true);
+    context.setCardListStatus(true);
     return (
       <>
         <div className="cards-container">
@@ -21,6 +21,7 @@ const CardList: React.FC<CardsProps> = ({ characters, setCardListStatus }) => {
               </div>
             </Link>
           ))}
+          <Outlet />
         </div>
       </>
     );

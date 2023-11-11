@@ -1,83 +1,77 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './styles/home-page.css';
 import Spinner from './componets/spinner';
 import SearchBar from './componets/searchBar';
-import { IErrorResponse, IProduct, fetchProducts } from '../../api/productsApi';
+import { fetchProducts } from '../../api/productsApi';
 import { Settings } from './componets/settings/settings';
 import CardList from './componets/cardList';
 import { useSearchParams } from 'react-router-dom';
+import { HomePageContext } from '../../context/contextProvider';
 
 const HomePage: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [data, setData] = useState<IProduct[] | IErrorResponse | null>(null);
-  const [loadingStatus, setLoadingStatus] = useState(false);
-  const [cardListStatus, setCardListStatus] = useState(false);
+  const context = useContext(HomePageContext);
+  const [searchParams] = useSearchParams();
   const [limit, setLimit] = useState(Number(searchParams.get('limit')) | 6);
   const [page, setPage] = useState(Number(searchParams.get('page')) | 1);
-  const [total, setTotal] = useState(0);
-  const [value, setValue] = useState(localStorage.getItem('inputValue') || '');
-
-  useEffect(() => {
-    setSearchParams(`page=${page}&limit=${limit}`);
-  }, [page, limit, setSearchParams]);
+  const [total] = useState(0);
 
   const handleSearch = async (value: string) => {
-    console.log('lo');
     const fetchDataFromApi = async () => {
-      setLoadingStatus(true);
-      setCardListStatus(false);
+      context.setLoadingStatus(true);
+      context.setCardListStatus(false);
       const result = await fetchProducts(value, limit);
 
       if (result.products) {
-        console.log(result);
-        setData(result.products);
+        context.setData(result);
       } else {
-        setCardListStatus(false);
-        setData(result);
+        context.setCardListStatus(false);
+        context.setData(result);
       }
-      setValue(value);
-      setPage(1);
-      setTotal(result.total);
-      setLoadingStatus(false);
+      context.setPage(1);
+      context.setLoadingStatus(false);
     };
 
     fetchDataFromApi();
   };
 
-  useEffect(() => {
-    const fetchDataFromApi = async () => {
-      setLoadingStatus(true);
-      const result = await fetchProducts(value, limit);
-      if (result.products) {
-        setData(result.products);
-      } else {
-        setCardListStatus(false);
-        setData(result);
-      }
-      setTotal(result.total);
-      setLoadingStatus(false);
-    };
+  // useEffect(() => {
+  //   const fetchDataFromApi = async () => {
+  //     context.setLoadingStatus(true);
+  //     const result = await fetchProducts(context.searchValue, limit);
+  //     if (result.products) {
+  //       setData(result.products);
+  //     } else {
+  //       setCardListStatus(false);
+  //       setData(result);
+  //     }
+  //     setTotal(result.total);
+  //     context.setLoadingStatus(false);
+  //   };
 
-    fetchDataFromApi();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [limit]);
+  //   fetchDataFromApi();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [limit]);
 
-  useEffect(() => {
-    const fetchDataFromApi = async () => {
-      setLoadingStatus(true);
-      const result = await fetchProducts(value, limit, limit * (page - 1));
-      if (result.products) {
-        setData(result.products);
-      } else {
-        setCardListStatus(false);
-        setData(result);
-      }
-      setLoadingStatus(false);
-    };
+  // useEffect(() => {
+  //   const fetchDataFromApi = async () => {
+  //     context.setLoadingStatus(true);
+  //     const result = await fetchProducts(
+  //       context.searchValue,
+  //       limit,
+  //       limit * (page - 1)
+  //     );
+  //     if (result.products) {
+  //       setData(result.products);
+  //     } else {
+  //       setCardListStatus(false);
+  //       setData(result);
+  //     }
+  //     context.setLoadingStatus(false);
+  //   };
 
-    fetchDataFromApi();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  //   fetchDataFromApi();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [page]);
 
   return (
     <>
@@ -85,15 +79,15 @@ const HomePage: React.FC = () => {
         <div className="search-bar__wrapper">
           <SearchBar handleSearch={handleSearch} />
         </div>
-        {cardListStatus ? (
+        {context.cardListStatus ? (
           <h3>
             {total ? total : 0} products found{' '}
-            {value.length > 0 ? `for ${value}` : ''}
+            {context.searchValue.length > 0 ? `for ${context.searchValue}` : ''}
           </h3>
         ) : (
           <></>
         )}
-        {cardListStatus ? (
+        {context.cardListStatus ? (
           <Settings
             page={page}
             limit={limit}
@@ -104,11 +98,7 @@ const HomePage: React.FC = () => {
         ) : (
           <></>
         )}
-        {loadingStatus ? (
-          <Spinner />
-        ) : (
-          <CardList characters={data} setCardListStatus={setCardListStatus} />
-        )}
+        {context.loadingStatus ? <Spinner /> : <CardList />}
       </div>
     </>
   );

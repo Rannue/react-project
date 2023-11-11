@@ -28,12 +28,12 @@ export interface IProductObject {
   total: number;
 }
 
-export const fetchProducts = async (value: string, limit: number, skip = 0) => {
+export const fetchProducts = async (value: string, page = 1) => {
   try {
     const response = await axios.get(
-      `https://dummyjson.com/products/search?q=${value}&limit=${limit}&skip=${skip}`
+      `https://rickandmortyapi.com/api/character/?name=${value}&page=${page}`
     );
-    if (response.data.products.length === 0) {
+    if (response.data.results.length === 0) {
       const responseObject: IErrorResponse = {
         errorStatus: 400,
         text: 'No products',
@@ -41,7 +41,7 @@ export const fetchProducts = async (value: string, limit: number, skip = 0) => {
       };
       return responseObject;
     } else {
-      return response.data;
+      return response.data.results;
     }
   } catch (error) {
     console.error('Ошибка:', error);
@@ -51,7 +51,9 @@ export const fetchProducts = async (value: string, limit: number, skip = 0) => {
 
 export const fetchProductsItem = async (id: string) => {
   try {
-    const response = await axios.get(`https://dummyjson.com/products/${id}`);
+    const response = await axios.get(
+      `https://rickandmortyapi.com/api/character/${id}`
+    );
     return response.data;
   } catch (error) {
     console.error('Ошибка:', error);

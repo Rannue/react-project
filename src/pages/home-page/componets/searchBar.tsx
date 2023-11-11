@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { HomePageContext } from '../../../context/contextProvider';
 
 interface ISearchBarProps {
   handleSearch: (value: string) => void;
 }
 
 const SearchBar: React.FC<ISearchBarProps> = ({ handleSearch }) => {
-  const [value, setValue] = useState(localStorage.getItem('inputValue') || '');
+  const context = useContext(HomePageContext);
 
   const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
-    setValue(inputValue);
+    context.setSearchValue(inputValue);
   };
 
   const search = () => {
-    handleSearch(value);
-    localStorage.setItem('inputValue', value);
+    handleSearch(context.searchValue);
+    localStorage.setItem('inputValue', context.searchValue);
   };
 
   return (
@@ -22,7 +23,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ handleSearch }) => {
       <input
         className="search-bar"
         type="text"
-        value={value}
+        value={context.searchValue}
         onChange={inputChange}
       />
       <button onClick={search}>

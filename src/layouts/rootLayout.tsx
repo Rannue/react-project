@@ -1,6 +1,7 @@
 import { Outlet, NavLink } from 'react-router-dom';
-import HomePage from '../pages/home-page/home-page';
 import Breadcrumbs from '../components/breacdCrumbs';
+import { HomePageContextProvider } from '../context/contextProvider';
+import HomePage from '../pages/home-page/home-page';
 
 export default function RootLayout() {
   return (
@@ -22,8 +23,10 @@ export default function RootLayout() {
       </header>
       <main>
         <div className="main-container__wrapper">
-          <Outlet />
-          <HomePage />
+          <HomePageContextProvider>
+            <HomePage />
+            <Outlet />
+          </HomePageContextProvider>
         </div>
       </main>
     </div>
