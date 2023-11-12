@@ -1,51 +1,26 @@
 import axios from 'axios';
 import character404 from '../assets/404.png';
+import { ICharacterResponse, IErrorResponse } from '../types/types';
 
-export interface IProduct {
-  brand: string;
-  category: string;
-  description: string;
-  discountPercentage: number;
-  id: number;
-  images: string[];
-  price: number;
-  rating: number;
-  stock: number;
-  thumbnail: string;
-  title: string;
-}
-
-export interface IErrorResponse {
-  errorStatus: number;
-  text: string;
-  image: string;
-}
-
-export interface IProductObject {
-  limit: number;
-  products: IProduct[];
-  skip: number;
-  total: number;
-}
-
-export const fetchProducts = async (value: string, page = 1) => {
+export const fetchProducts = async (value = '', page = 1) => {
   try {
     const response = await axios.get(
       `https://rickandmortyapi.com/api/character/?name=${value}&page=${page}`
     );
-    if (response.data.results.length === 0) {
-      const responseObject: IErrorResponse = {
-        errorStatus: 400,
-        text: 'No products',
-        image: character404,
-      };
-      return responseObject;
-    } else {
-      return response.data.results;
-    }
+    const responseObject: ICharacterResponse = {
+      data: response.data.results,
+      info: response.data.info,
+    };
+    console.log(responseObject);
+    return responseObject;
   } catch (error) {
     console.error('Ошибка:', error);
-    return null;
+    const responseObject: IErrorResponse = {
+      errorStatus: 404,
+      text: 'No products',
+      image: character404,
+    };
+    return responseObject;
   }
 };
 

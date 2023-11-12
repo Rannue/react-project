@@ -3,36 +3,46 @@ import { HomePageContext } from '../../../context/contextProvider';
 import { fetchProducts } from '../../../api/productsApi';
 
 const SearchBar: React.FC = () => {
-  const context = useContext(HomePageContext);
+  const {
+    searchValue,
+    setData,
+    setSearchValue,
+    setLoadingStatus,
+    setCardListStatus,
+    setPage,
+    setTotalCharacter,
+  } = useContext(HomePageContext);
 
   const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
-    context.setSearchValue(inputValue);
+    setSearchValue(inputValue);
   };
 
   const handleSearch = async (value: string) => {
     const fetchDataFromApi = async () => {
-      context.setLoadingStatus(true);
-      context.setCardListStatus(false);
+      setLoadingStatus(true);
+      setCardListStatus(false);
       const result = await fetchProducts(value);
 
-      if (result.length > 0) {
-        context.setData(result);
+      if (result && 'data' in result) {
+        setData(result.data);
+        setTotalCharacter(result.info.count);
       } else {
-        context.setCardListStatus(false);
-        context.setData(result);
+        setCardListStatus(false);
+        setData(result);
       }
-      localStorage.setItem('inputValue', context.searchValue);
-      context.setPage(1);
-      context.setLoadingStatus(false);
+
+      localStorage.setItem('inputValue', searchValue);
+      setPage(1);
+      setLoadingStatus(false);
     };
 
     fetchDataFromApi();
   };
 
   const search = () => {
-    handleSearch(context.searchValue);
-    localStorage.setItem('inputValue', context.searchValue);
+    handleSearch(searchValue);
+    localStorage.setItem('inputValue', searchValue);
   };
 
   return (
@@ -40,7 +50,7 @@ const SearchBar: React.FC = () => {
       <input
         className="search-bar"
         type="text"
-        value={context.searchValue}
+        value={searchValue}
         onChange={inputChange}
       />
       <button data-testid="search-button" onClick={search}>

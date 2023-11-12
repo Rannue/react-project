@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchProductsItem } from '../../../../api/productsApi';
 import './cardItemDetails.css';
@@ -7,7 +7,6 @@ import { ICharacter } from '../../../../types/types';
 export default function CardItemDetails() {
   const { id } = useParams();
   const [card, setCard] = useState<ICharacter | null>(null);
-  console.log(card);
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
@@ -24,21 +23,15 @@ export default function CardItemDetails() {
       <img className="career-details__img" src={card?.image} alt="" />
       <div className="career-details__info">
         <div className="career-details__main-info">
-          <h5>{card?.name}</h5>
+          <h4>{card?.name}</h4>
           <div className="career-details__second-info">
+            <h6>species: {card?.species}</h6>
+            <h6>type: {card?.type}</h6>
             <h6>status: {card?.status}</h6>
-            <h6>rating: {card?.name}</h6>
-            <h6>stock: {card?.name}</h6>
+            <h6>gender: {card?.gender}</h6>
           </div>
-          <h4>{card?.name}$</h4>
         </div>
       </div>
-      <NavLink to="description">
-        <button>
-          <h6>description</h6>
-        </button>
-      </NavLink>
-      <Outlet />
       <NavLink to="/">
         <button>
           <h6>close</h6>

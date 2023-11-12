@@ -30,19 +30,3 @@ test('ensure that the card component renders the relevant card data', () => {
   expect(imageElement).toBeInTheDocument();
   expect(imageElement).toHaveAttribute('src', 'test-image');
 });
-
-// test('check that clicking triggers an additional API call to fetch detailed information', async () => {
-//     render(<CardItem character={character} />);
-
-//     // Кликаем по карточке
-//     const cardElement = screen.getByText(/test-name/i);
-//     fireEvent.click(cardElement);
-
-//     await act(async () => {
-//         await new Promise((resolve) => setTimeout(resolve, 0)); // Даем шанс асинхронным операциям выполниться
-//       });
-
-//     // Проверяем, что детальная карточка была открыта
-//     const detailedCardElement = screen.getByText(/test-status/i); // Подставьте здесь текст, который отображается на детальной карточке
-//     expect(detailedCardElement).toBeInTheDocument();
-//   });

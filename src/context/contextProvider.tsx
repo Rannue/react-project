@@ -1,28 +1,11 @@
-import { ReactNode, createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
-  SetURLSearchParams,
-  useLocation,
-  useSearchParams,
-} from 'react-router-dom';
-import { IErrorResponse } from '../api/productsApi';
-import { ICharacter } from '../types/types';
-
-export interface IHomePageContext {
-  searchValue: string;
-  setSearchValue: (value: string) => void;
-  loadingStatus: boolean;
-  setLoadingStatus: (value: boolean) => void;
-  searchParams: URLSearchParams | undefined;
-  setSearchParams: SetURLSearchParams;
-  page: number;
-  setPage: (value: number) => void;
-  limit: number;
-  setLimit: (value: number) => void;
-  data: ICharacter[] | IErrorResponse | null;
-  setData: (value: ICharacter[] | IErrorResponse | null) => void;
-  cardListStatus: boolean;
-  setCardListStatus: (value: boolean) => void;
-}
+  ICharacter,
+  IErrorResponse,
+  IHomePageContext,
+  IHomePageContextProviderProps,
+} from '../types/types';
 
 export const defaultValue: IHomePageContext = {
   searchValue: '',
@@ -39,11 +22,9 @@ export const defaultValue: IHomePageContext = {
   setData: () => {},
   cardListStatus: false,
   setCardListStatus: () => {},
+  totalCharacter: 1,
+  setTotalCharacter: () => {},
 };
-
-export interface IHomePageContextProviderProps {
-  children: ReactNode;
-}
 
 export const HomePageContext = createContext(defaultValue);
 
@@ -56,17 +37,15 @@ export const HomePageContextProvider: React.FC<
   );
   const [data, setData] = useState<ICharacter[] | IErrorResponse | null>(null);
   const [loadingStatus, setLoadingStatus] = useState(false);
-  const [limit, setLimit] = useState(Number(searchParams.get('limit')) | 20);
-  const [page, setPage] = useState(Number(searchParams.get('page')) | 1);
+  const [limit, setLimit] = useState(Number(searchParams.get('limit')) || 20);
+  const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
+  const [totalCharacter, setTotalCharacter] = useState(0);
   const [cardListStatus, setCardListStatus] = useState(false);
-
-  const l = useLocation();
-  console.log(l);
 
   useEffect(() => {
     setSearchParams(`page=${page}&limit=${limit}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, limit]);
+  }, [page, limit, searchParams]);
 
   const contextValue: IHomePageContext = {
     searchValue,
@@ -83,6 +62,8 @@ export const HomePageContextProvider: React.FC<
     setData,
     cardListStatus,
     setCardListStatus,
+    totalCharacter,
+    setTotalCharacter,
   };
 
   return (

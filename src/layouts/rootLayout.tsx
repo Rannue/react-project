@@ -1,7 +1,7 @@
 import { Outlet, NavLink } from 'react-router-dom';
 import Breadcrumbs from '../components/breacdCrumbs';
 import { HomePageContextProvider } from '../context/contextProvider';
-import HomePage from '../pages/home-page/home-page';
+import { HomePage } from '../pages/home-page/home-page';
 
 export default function RootLayout() {
   return (

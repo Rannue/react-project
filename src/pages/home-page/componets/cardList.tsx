@@ -1,34 +1,30 @@
 import React, { useContext } from 'react';
 import CardItem from './cardItem';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { HomePageContext } from '../../../context/contextProvider';
 
 const CardList: React.FC = () => {
-  const { page } = useParams();
-  console.log(page);
-  const context = useContext(HomePageContext);
-  const characters = context.data;
-
-  if (Array.isArray(characters)) {
-    context.setCardListStatus(true);
+  const { data, setCardListStatus } = useContext(HomePageContext);
+  if (Array.isArray(data)) {
+    setCardListStatus(true);
     return (
       <>
         <div className="cards-container">
-          {characters.map((card) => (
-            <Link to={card.id.toString()} key={card.id}>
-              <div className="card" key={card.id}>
-                <CardItem character={card} />
+          {data.map((item) => (
+            <Link to={item.id.toString()} key={item.id}>
+              <div className="card" key={item.id}>
+                <CardItem character={item} />
               </div>
             </Link>
           ))}
-          <Outlet />
         </div>
       </>
     );
-  } else if (characters) {
+  } else if (data) {
     return (
-      <div className="prompt-container">
-        <h3>{characters.text}</h3>
+      <div data-testid="prompt-container" className="prompt-container">
+        <img className="prompt-img" src={data.image} alt="boy" />
+        <h3>{data.text}</h3>
       </div>
     );
   }

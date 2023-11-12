@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import SearchBar from '../pages/home-page/componets/searchBar';
 import { HomePageContextProvider } from '../context/contextProvider';
 import { BrowserRouter } from 'react-router-dom';
+import { expect } from 'vitest';
 
 test('verify that clicking the Search button saves the entered value to the local storage', async () => {
   render(
