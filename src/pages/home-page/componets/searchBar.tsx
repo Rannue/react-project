@@ -1,16 +1,33 @@
 import React, { useContext } from 'react';
 import { HomePageContext } from '../../../context/contextProvider';
+import { fetchProducts } from '../../../api/productsApi';
 
-interface ISearchBarProps {
-  handleSearch: (value: string) => void;
-}
-
-const SearchBar: React.FC<ISearchBarProps> = ({ handleSearch }) => {
+const SearchBar: React.FC = () => {
   const context = useContext(HomePageContext);
 
   const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
     context.setSearchValue(inputValue);
+  };
+
+  const handleSearch = async (value: string) => {
+    const fetchDataFromApi = async () => {
+      context.setLoadingStatus(true);
+      context.setCardListStatus(false);
+      const result = await fetchProducts(value);
+
+      if (result.length > 0) {
+        context.setData(result);
+      } else {
+        context.setCardListStatus(false);
+        context.setData(result);
+      }
+      localStorage.setItem('inputValue', context.searchValue);
+      context.setPage(1);
+      context.setLoadingStatus(false);
+    };
+
+    fetchDataFromApi();
   };
 
   const search = () => {
@@ -26,7 +43,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ handleSearch }) => {
         value={context.searchValue}
         onChange={inputChange}
       />
-      <button onClick={search}>
+      <button data-testid="search-button" onClick={search}>
         <div className="search-icon">
           <svg
             width="24"
