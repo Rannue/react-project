@@ -11,7 +11,7 @@ const CardList: React.FC = () => {
       <>
         <div className="cards-container">
           {data.map((item) => (
-            <Link to={item.id.toString()} key={item.id}>
+            <Link to={`cards/${item.id.toString()}`} key={item.id}>
               <div className="card" key={item.id}>
                 <CardItem character={item} />
               </div>
