@@ -1,0 +1,47 @@
+@charset "UTF-8";
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.limit,
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.limit button,
+.pagination button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  background-color: #f5cb5c;
+}
+.limit select,
+.pagination select {
+  padding: 0 4px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: #f5cb5c;
+}
+.limit select:focus,
+.pagination select:focus {
+  outline: none;
+  border: none;
+}
+.limit select,
+.pagination select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Добавляем свойство cursor, чтобы показать, что это можно выбирать */
+  cursor: pointer;
+} /*# sourceMappingURL=settings.css.map */
