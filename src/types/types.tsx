@@ -39,6 +39,8 @@ export interface IHomePageContext {
   setCardListStatus: (value: boolean) => void;
   totalCharacter: number;
   setTotalCharacter: (value: number) => void;
+  limitPage: number;
+  setLimitPage: (value: number) => void;
 }
 
 export interface IHomePageContextProviderProps {

@@ -1,16 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { HomePageContext } from '../../context/contextProvider';
 import { useFetchAllCharactersQuery } from '../../services/CharacterService';
 import { useAppSelector } from '../../hooks/redux';
 import './settings.scss';
 
 export const Settings: React.FC = () => {
-  const { page, limit, setLimit, setPage } = useContext(HomePageContext);
-
-  const [limitPage, setLimitPage] = useState(page);
+  const { page, limit, setLimit, setPage, limitPage, setLimitPage } =
+    useContext(HomePageContext);
   const { value } = useAppSelector((state) => state.searchValueReducer);
-  const { data, refetch } = useFetchAllCharactersQuery(
-    { page: limitPage, name: value },
+  const { data } = useFetchAllCharactersQuery(
+    { page: page, name: value },
     {
       refetchOnMountOrArgChange: true,
     }
@@ -18,33 +17,27 @@ export const Settings: React.FC = () => {
 
   useEffect(() => {
     if (limit === 10) {
-      setLimitPage(Math.ceil(page / 2));
+      setPage(Math.ceil(limitPage / 2));
     } else if (limit === 20) {
-      setLimitPage(page);
+      setPage(limitPage);
     }
-    refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, limitPage]);
 
   const handlePrevPage = () => {
-    setPage(Number(page) - 1);
+    setLimitPage(Number(limitPage) - 1);
   };
 
   const handleNextPage = () => {
-    setPage(Number(page) + 1);
+    setLimitPage(Number(limitPage) + 1);
   };
 
   const handleSelectChange = (event: React.FormEvent<HTMLSelectElement>) => {
     const value = Number(event.currentTarget.value);
     setLimit(value);
     setPage(1);
+    setLimitPage(1);
   };
-
-  console.log(data?.info.count);
-  console.log(data?.info);
-  console.log(data?.results);
-
-  console.log(`multi ${limit * page}`);
 
   return (
     <>
@@ -62,13 +55,13 @@ export const Settings: React.FC = () => {
           </select>
         </div>
         <div className="pagination">
-          <button disabled={page === 1} onClick={handlePrevPage}>
+          <button disabled={limitPage === 1} onClick={handlePrevPage}>
             ᐊ
           </button>
-          <p>page: {page}</p>
+          <p>page: {limitPage}</p>
           <button
             data-testid="next-button"
-            disabled={limit * page >= (data ? data?.info.count : 1000)}
+            disabled={limit * limitPage >= (data ? data?.info.count : 1000)}
             onClick={handleNextPage}
           >
             ᐅ

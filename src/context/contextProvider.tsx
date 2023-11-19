@@ -24,6 +24,8 @@ export const defaultValue: IHomePageContext = {
   setCardListStatus: () => {},
   totalCharacter: 1,
   setTotalCharacter: () => {},
+  limitPage: 1,
+  setLimitPage: () => {},
 };
 
 export const HomePageContext = createContext(defaultValue);
@@ -41,6 +43,9 @@ export const HomePageContextProvider: React.FC<
   const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
   const [totalCharacter, setTotalCharacter] = useState(0);
   const [cardListStatus, setCardListStatus] = useState(false);
+  const [limitPage, setLimitPage] = useState(
+    Number(searchParams.get('page')) || 1
+  );
 
   useEffect(() => {
     setSearchParams(`page=${page}&limit=${limit}`);
@@ -64,6 +69,8 @@ export const HomePageContextProvider: React.FC<
     setCardListStatus,
     totalCharacter,
     setTotalCharacter,
+    limitPage,
+    setLimitPage,
   };
 
   return (

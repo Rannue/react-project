@@ -10,7 +10,7 @@ import { Settings } from './settings/settings';
 import { ICharacter } from '../types/types';
 
 const CardList: React.FC = () => {
-  const { page, limit } = useContext(HomePageContext);
+  const { page, limit, limitPage } = useContext(HomePageContext);
 
   const { value } = useAppSelector((state) => state.searchValueReducer);
   const { data, error, isLoading, refetch } = useFetchAllCharactersQuery(
@@ -31,7 +31,7 @@ const CardList: React.FC = () => {
     if (!error) {
       let characters: ICharacter[] | undefined = data?.results;
       if (limit === 10) {
-        page % 2 === 0
+        limitPage % 2 === 0
           ? (characters = data?.results.slice(10))
           : (characters = data?.results.slice(0, 10));
       }
