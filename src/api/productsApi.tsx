@@ -7,8 +7,9 @@ export const fetchProducts = async (value = '', page = 1) => {
     const response = await axios.get(
       `https://rickandmortyapi.com/api/character/?name=${value}&page=${page}`
     );
+    console.log(response);
     const responseObject: ICharacterResponse = {
-      data: response.data.results,
+      results: response.data.results,
       info: response.data.info,
     };
     return responseObject;

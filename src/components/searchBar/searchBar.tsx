@@ -1,53 +1,32 @@
 import React, { useContext } from 'react';
 import { HomePageContext } from '../../context/contextProvider';
-import { fetchProducts } from '../../api/productsApi';
-import { useDispatch } from 'react-redux';
-import { addSearchValue } from '../../store/reducers/searchValueValue';
 import './searchBar.scss';
+import { useFetchAllCharactersQuery } from '../../services/CharacterService';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { addSearchValue } from '../../store/reducers/searchValueValue';
 
 const SearchBar: React.FC = () => {
-  const {
-    searchValue,
-    setData,
-    setSearchValue,
-    setLoadingStatus,
-    setCardListStatus,
-    setPage,
-    setTotalCharacter,
-  } = useContext(HomePageContext);
-  const dispatch = useDispatch();
+  const { page, searchValue, setSearchValue, setPage } =
+    useContext(HomePageContext);
+  const { value } = useAppSelector((state) => state.searchValueReducer);
+  const { refetch } = useFetchAllCharactersQuery(
+    { page: page, name: value },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
+  const dispatch = useAppDispatch();
 
   const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
     setSearchValue(inputValue);
-    dispatch(addSearchValue(inputValue));
-  };
-
-  const handleSearch = async (value: string) => {
-    const fetchDataFromApi = async () => {
-      setLoadingStatus(true);
-      setCardListStatus(false);
-      const result = await fetchProducts(value);
-
-      if (result && 'data' in result) {
-        setData(result.data);
-        setTotalCharacter(result.info.count);
-      } else {
-        setCardListStatus(false);
-        setData(result);
-      }
-
-      localStorage.setItem('inputValue', searchValue);
-      setPage(1);
-      setLoadingStatus(false);
-    };
-
-    fetchDataFromApi();
   };
 
   const search = () => {
-    handleSearch(searchValue);
+    setPage(1);
+    dispatch(addSearchValue(searchValue));
     localStorage.setItem('inputValue', searchValue);
+    refetch();
   };
 
   return (

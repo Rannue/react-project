@@ -66,7 +66,7 @@ export interface IErrorResponse {
 }
 
 export interface ICharacterResponse {
-  data: ICharacter[];
+  results: ICharacter[];
   info: ICharacterInfo;
 }
 

@@ -4,9 +4,10 @@ import App from './App';
 import './index.css';
 import ErrorBoundary from './errorBoundary';
 import { Provider } from 'react-redux';
-import { setupStore } from './store/store';
+import store from './store/store';
+// import { setupStore } from './store/store';
 
-const store = setupStore();
+// const store = setupStore();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -14,7 +15,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Provider store={store}>
         <App />
       </Provider>
-      ,
     </ErrorBoundary>
   </React.StrictMode>
 );

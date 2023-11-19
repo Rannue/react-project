@@ -1,6 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-interface ISearchValueState {
+export interface IState {
+  searchValueSlice: ISearchValueState;
+}
+
+export interface ISearchValueState {
   value: string;
 }
 

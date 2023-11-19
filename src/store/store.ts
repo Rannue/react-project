@@ -1,18 +1,22 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import characterReducer from './reducers/charscterSlice';
 import searchValueReducer from './reducers/searchValueValue';
+import { characterAPI } from '../services/CharacterService';
+import { setupListeners } from '@reduxjs/toolkit/query';
 
 const rootReducer = combineReducers({
-  characterReducer,
   searchValueReducer,
+  characters: characterAPI.reducer,
+  [characterAPI.reducerPath]: characterAPI.reducer,
 });
 
-export const setupStore = () => {
-  return configureStore({
-    reducer: rootReducer,
-  });
-};
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(characterAPI.middleware),
+});
+
+setupListeners(store.dispatch);
+
+export default store;
 
 export type RootState = ReturnType<typeof rootReducer>;
-export type AppStore = ReturnType<typeof setupStore>;
-export type AppDispatch = AppStore['dispatch'];

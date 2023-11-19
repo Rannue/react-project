@@ -1,52 +1,30 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { HomePageContext } from '../../context/contextProvider';
+import { useFetchAllCharactersQuery } from '../../services/CharacterService';
+import { useAppSelector } from '../../hooks/redux';
 import './settings.scss';
-import { fetchProducts } from '../../api/productsApi';
 
 export const Settings: React.FC = () => {
-  const {
-    page,
-    limit,
-    searchValue,
-    totalCharacter,
-    setLimit,
-    setPage,
-    setData,
-    setLoadingStatus,
-  } = useContext(HomePageContext);
+  const { page, limit, setLimit, setPage } = useContext(HomePageContext);
+
+  const [limitPage, setLimitPage] = useState(page);
+  const { value } = useAppSelector((state) => state.searchValueReducer);
+  const { data, refetch } = useFetchAllCharactersQuery(
+    { page: limitPage, name: value },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
 
   useEffect(() => {
     if (limit === 10) {
-      const fetchDataFromApi = async () => {
-        setLoadingStatus(true);
-        const result = await fetchProducts(searchValue, Math.ceil(page / 2));
-        if (result && 'data' in result) {
-          page % 2 === 0
-            ? setData(result.data.slice(10))
-            : setData(result.data.slice(0, 10));
-        } else {
-          setData(result);
-        }
-        setLoadingStatus(false);
-      };
-
-      fetchDataFromApi();
+      setLimitPage(Math.ceil(page / 2));
     } else if (limit === 20) {
-      const fetchDataFromApi = async () => {
-        setLoadingStatus(true);
-        const result = await fetchProducts(searchValue, page);
-        if (result && 'data' in result) {
-          setData(result.data);
-        } else {
-          setData(result);
-        }
-        setLoadingStatus(false);
-      };
-
-      fetchDataFromApi();
+      setLimitPage(page);
     }
+    refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, limit]);
+  }, [limit, limitPage]);
 
   const handlePrevPage = () => {
     setPage(Number(page) - 1);
@@ -61,6 +39,12 @@ export const Settings: React.FC = () => {
     setLimit(value);
     setPage(1);
   };
+
+  console.log(data?.info.count);
+  console.log(data?.info);
+  console.log(data?.results);
+
+  console.log(`multi ${limit * page}`);
 
   return (
     <>
@@ -84,7 +68,7 @@ export const Settings: React.FC = () => {
           <p>page: {page}</p>
           <button
             data-testid="next-button"
-            disabled={limit * page + limit >= totalCharacter}
+            disabled={limit * page >= (data ? data?.info.count : 1000)}
             onClick={handleNextPage}
           >
             ᐅ

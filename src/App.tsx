@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import {
   Route,
@@ -9,14 +9,9 @@ import {
 import RootLayout from './layouts/rootLayout';
 import CardItemDetails from './components/cardItemDetails/cardItemDetails';
 import { NotFound } from './pages/notFound/notFound';
-import { useAppDispatch, useAppSelector } from './hooks/redux';
-import { fetchCharacters } from './store/reducers/ActionCreators';
 
 function App() {
   const [errorStatus, setErrorStatus] = useState(false);
-  const dispath = useAppDispatch();
-  const { value } = useAppSelector((state) => state.searchValueReducer);
-
   const throwError = () => {
     setErrorStatus(true);
   };
@@ -34,17 +29,11 @@ function App() {
     )
   );
 
-  useEffect(() => {
-    dispath(fetchCharacters());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <>
       <button className="error-button" onClick={throwError}>
         Error?
       </button>
-      <h1>{value}</h1>
       <RouterProvider router={router} />
     </>
   );
