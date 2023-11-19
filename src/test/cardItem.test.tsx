@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import CardItem from '../pages/home-page/componets/cardItem';
+import CardItem from '../components/cardItem';
 import { ICharacter } from '../types/types';
 
 const character: ICharacter = {

@@ -1,0 +1,14 @@
+.loader.dots {
+  text-align: center;
+  margin-top: 10%;
+}
+
+.loader.dots div {
+  background-color: #e8eddf;
+  width: 24px;
+  height: 24px;
+  margin: 0 5px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: dots 1.4s infinite;
+}

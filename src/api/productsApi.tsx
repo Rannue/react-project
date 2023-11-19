@@ -11,7 +11,6 @@ export const fetchProducts = async (value = '', page = 1) => {
       data: response.data.results,
       info: response.data.info,
     };
-    console.log(responseObject);
     return responseObject;
   } catch (error) {
     console.error('Ошибка:', error);

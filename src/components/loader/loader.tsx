@@ -1,4 +1,6 @@
-const Spinner = () => {
+import './loader.scss';
+
+const Loader = () => {
   return (
     <>
       <div data-testid="spinner-test" className="loader dots">
@@ -10,4 +12,4 @@ const Spinner = () => {
   );
 };
 
-export default Spinner;
+export default Loader;

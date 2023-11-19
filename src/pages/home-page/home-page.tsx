@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react';
-import './styles/home-page.css';
-import Spinner from './componets/spinner';
-import SearchBar from './componets/searchBar';
-import { Settings } from './componets/settings/settings';
-import CardList from './componets/cardList';
+import './home-page.scss';
+import Loader from '../../components/loader/loader';
+import SearchBar from '../../components/searchBar/searchBar';
+import { Settings } from '../../components/settings/settings';
+import CardList from '../../components/cardList';
 import { HomePageContext } from '../../context/contextProvider';
 import { fetchProducts } from '../../api/productsApi';
 
@@ -59,7 +59,7 @@ export const HomePage: React.FC = () => {
           <></>
         )}
         {cardListStatus ? <Settings /> : <></>}
-        {loadingStatus ? <Spinner /> : <CardList />}
+        {loadingStatus ? <Loader /> : <CardList />}
       </div>
     </>
   );

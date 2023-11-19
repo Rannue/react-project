@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import CardItem from './cardItem';
 import { Link } from 'react-router-dom';
-import { HomePageContext } from '../../../context/contextProvider';
+import { HomePageContext } from '../context/contextProvider';
 
 const CardList: React.FC = () => {
   const { data, setCardListStatus } = useContext(HomePageContext);

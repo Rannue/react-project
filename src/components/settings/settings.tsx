@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
-import { HomePageContext } from '../../../../context/contextProvider';
-import './settings.css';
-import { fetchProducts } from '../../../../api/productsApi';
+import { HomePageContext } from '../../context/contextProvider';
+import './settings.scss';
+import { fetchProducts } from '../../api/productsApi';
 
 export const Settings: React.FC = () => {
   const {

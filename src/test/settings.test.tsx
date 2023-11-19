@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Settings } from '../pages/home-page/componets/settings/settings';
+import { Settings } from '../components/settings/settings';
 
 test('renders Settings component', async () => {
   render(<Settings />);

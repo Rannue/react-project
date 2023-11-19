@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
-import { HomePageContext } from '../../../context/contextProvider';
-import { fetchProducts } from '../../../api/productsApi';
+import { HomePageContext } from '../../context/contextProvider';
+import { fetchProducts } from '../../api/productsApi';
+import { useDispatch } from 'react-redux';
+import { addSearchValue } from '../../store/reducers/searchValueValue';
+import './searchBar.scss';
 
 const SearchBar: React.FC = () => {
   const {
@@ -12,10 +15,12 @@ const SearchBar: React.FC = () => {
     setPage,
     setTotalCharacter,
   } = useContext(HomePageContext);
+  const dispatch = useDispatch();
 
   const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
     setSearchValue(inputValue);
+    dispatch(addSearchValue(inputValue));
   };
 
   const handleSearch = async (value: string) => {

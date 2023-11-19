@@ -1,8 +1,8 @@
 import { NavLink, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchProductsItem } from '../../../../api/productsApi';
-import './cardItemDetails.css';
-import { ICharacter } from '../../../../types/types';
+import { fetchProductsItem } from '../../api/productsApi';
+import './cardItemDetails.scss';
+import { ICharacter } from '../../types/types';
 
 export default function CardItemDetails() {
   const { id } = useParams();
